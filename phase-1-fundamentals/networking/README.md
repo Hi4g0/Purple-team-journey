@@ -31,3 +31,18 @@ Understand how local firewalls filter network traffic using specific port rules 
 - `sudo ufw status numbered`: Displayed active firewall rules in an indexed table format.
 - `sudo ufw deny 80/tcp`: Created a rule blocking incoming HTTP traffic on port 80.
 - `sudo ufw allow 22/tcp`: Created a rule permitting incoming SSH management traffic on port 22.
+
+
+## Network Path Inspection with Traceroute - Lab 04
+
+### Objective
+Analyze routing paths, network hops, and latencies from the local host to remote cloud infrastructure (GitHub/Microsoft Azure).
+
+### Technical Analysis:
+- **Local Gateway (Hop 1)**: Reached home router (`192.168.1.1`) under `0.5ms`.
+- **ISP Infrastructure (Hops 2-5)**: Transited through Carrier-Grade NAT (CGNAT) and North Telecom backbone.
+- **Enterprise Edge & Cloud Data Center (Hops 7-11)**: Entered Microsoft's global network backbone (`msn.net`) through São Paulo/Guarulhos (`sao30`/`gru30`) into the Campinas Data Center (`cpq02`/`cpq20`).
+- **Firewall Dropped Packets (`* * *`)**: Internal data center security policies drop ICMP/TTL packets to prevent topology mapping.
+
+### Commands Executed:
+- `traceroute github.com`: Tracked the network path and round-trip times (RTT) across 30 maximum hops.
