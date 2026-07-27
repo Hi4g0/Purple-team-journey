@@ -46,3 +46,15 @@ Analyze routing paths, network hops, and latencies from the local host to remote
 
 ### Commands Executed:
 - `traceroute github.com`: Tracked the network path and round-trip times (RTT) across 30 maximum hops.
+
+## Layer 2 Data Link Inspection (ARP Table) - Lab 05
+
+### Objective
+Inspect Address Resolution Protocol (ARP) cache mappings between Layer 3 IP addresses and Layer 2 Physical MAC addresses.
+
+### Technical Concept:
+- **ARP Protocol**: Resolves IP addresses into hardware MAC addresses within a local area network (LAN).
+- **Security Relevance**: Monitoring ARP tables helps identify ARP Poisoning / Man-in-the-Middle (MITM) attacks where malicious hosts forge hardware MAC identities.
+
+### Commands Executed:
+- `ip neighbor`: Displayed the active neighbor table showing IP-to-MAC address bindings on the local interface.
