@@ -58,3 +58,17 @@ Inspect Address Resolution Protocol (ARP) cache mappings between Layer 3 IP addr
 
 ### Commands Executed:
 - `ip neighbor`: Displayed the active neighbor table showing IP-to-MAC address bindings on the local interface.
+
+
+## Packet Analysis & Display Filters with Wireshark - Lab 06 date:27/06/2026
+### Objective
+Understand display filter syntax in Wireshark for effective network traffic analysis during incident investigation.
+
+### Key Display Filters Reference:
+- `http`: Filters unencrypted web application traffic on TCP port 80.
+- `dns`: Isolates Domain Name System queries and responses over UDP port 53.
+- `ip.addr == X.X.X.X`: Shows all incoming and outgoing packets associated with a specific IP address.
+- `ip.src == X.X.X.X && tcp.port == 80`: Combines logical operators to isolate HTTP traffic originating from a single host source.
+
+### Security Analyst Context
+Display filters allow SOC analysts to eliminate background network noise and isolate suspicious indicators of compromise (IoCs), such as unusual DNS queries or unauthorized connection attempts. 
