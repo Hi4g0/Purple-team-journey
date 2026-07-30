@@ -1,0 +1,20 @@
+# CTF Writeup: seach skills
+**Platform:** TryHackMe / Hack The Box  
+**Difficulty:** Easy  
+**Category:** Web / Linux / Recon  
+**Date:** July 29, 2026  
+
+---
+
+## 1. Objective
+```o
+o
+---
+
+## 2. Reconnaissance & Enumeration
+
+```bash
+#o Example: Port Scanning
+nmap -sV <TARGET_IP>
+
+xxoooo
