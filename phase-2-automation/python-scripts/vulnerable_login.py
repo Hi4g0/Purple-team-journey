@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # =========================================================
 # Script: vulnerable_login.py
-# Descricao: Servidor Web com Banco SQLite vulneravel a SQL Injection
+# Descricao: Servidor Web com Banco SQLite PROTEGIDO contra SQL Injection
 # Autor: Hiago (Purple Team Journey)
 # =========================================================
 
@@ -40,7 +40,7 @@ class LoginHandler(BaseHTTPRequestHandler):
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Lab Purple Team - Login Vulneravel (SQLi)</title>
+            <title>Lab Purple Team - Login Seguro (Protegido)</title>
             <style>
                 body { font-family: Arial, sans-serif; background-color: #1e1e2e; color: #cdd6f4; text-align: center; padding-top: 50px; }
                 .card { background-color: #313244; display: inline-block; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
@@ -50,7 +50,7 @@ class LoginHandler(BaseHTTPRequestHandler):
         </head>
         <body>
             <div class="card">
-                <h2>🔐 Portal Restrito (Lab SQLi)</h2>
+                <h2>🛡️ Portal Restrito (Protegido contra SQLi)</h2>
                 <form action="/login" method="POST">
                     <input type="text" name="username" placeholder="Usuario" required><br>
                     <input type="password" name="password" placeholder="Senha" required><br>
@@ -70,18 +70,19 @@ class LoginHandler(BaseHTTPRequestHandler):
         username = fields.get('username', [''])[0]
         password = fields.get('password', [''])[0]
 
-        # 🚨 VULNERABILIDADE AQUI: Concatenação direta de strings na Query SQL!
-        query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+        # ✅ CORREÇÃO BLUE TEAM: Usando marcadores de posicao (?) em vez de concatenar strings!
+        query = "SELECT * FROM users WHERE username = ? AND password = ?"
         
         print("=" * 60)
         print(f"📥 Dados Recebidos -> Usr: {username} | Pwd: {password}")
-        print(f"🔍 QUERY EXECUTADA NO BANCO:\n   {query}")
+        print(f"🔍 QUERY PARAMETRIZADA EXECUTADA:\n   {query}")
         print("=" * 60)
 
         cursor = DB_CONN.cursor()
         
         try:
-            cursor.execute(query)
+            # Os dados do usuario sao passados numa tupla separada (username, password)
+            cursor.execute(query, (username, password))
             user = cursor.fetchone()
 
             self.send_response(200)
@@ -89,7 +90,7 @@ class LoginHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
             if user:
-                response = f"<h1>✅ ACESSO CONCEDIDO! Bem-vindo, {user[1]} (FLAG{{SQLI_BYPASS_SUCCESS}})</h1>"
+                response = f"<h1>✅ ACESSO CONCEDIDO! Bem-vindo, {user[1]}</h1>"
             else:
                 response = "<h1>❌ ACESSO NEGADO! Credenciais invalidas.</h1>"
 
@@ -97,7 +98,7 @@ class LoginHandler(BaseHTTPRequestHandler):
             self.send_response(500)
             self.send_header('Content-type', 'text/html; charset=utf-8')
             self.end_headers()
-            response = f"<h1>⚠️ ERRO DE SINTAXE SQL: {e}</h1>"
+            response = f"<h1>⚠️ ERRO NO BANCO DE DADOS: {e}</h1>"
 
         self.wfile.write(response.encode('utf-8'))
 
@@ -105,7 +106,7 @@ def run_server():
     server_address = ('127.0.0.1', 8099)
     httpd = HTTPServer(server_address, LoginHandler)
     print("=" * 60)
-    print("🚀 SERVIDOR DE TESTES SQLi RODANDO EM http://127.0.0.1:8099")
+    print("🚀 SERVIDOR SEGURO RODANDO EM http://127.0.0.1:8099")
     print("Pressione Ctrl + C para encerrar.")
     print("=" * 60)
     
