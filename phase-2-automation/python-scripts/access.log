@@ -1,0 +1,5 @@
+127.0.0.1 - - [30/Jul/2026 01:33:37] "GET /admin HTTP/1.1" GET /admin HTTP/1.1 -
+127.0.0.1 - - [30/Jul/2026 01:33:37] "GET /secret-admin HTTP/1.1" GET /secret-admin HTTP/1.1 -
+127.0.0.1 - - [30/Jul/2026 01:33:37] "GET /test HTTP/1.1" GET /test HTTP/1.1 -
+127.0.0.1 - - [30/Jul/2026 01:33:37] "GET /login HTTP/1.1" GET /login HTTP/1.1 -
+127.0.0.1 - - [30/Jul/2026 01:33:37] "GET /uploads HTTP/1.1" GET /uploads HTTP/1.1 -

@@ -1,7 +1,5 @@
 admin
-home
-login
 secret-admin
 test
+login
 uploads
-backup
