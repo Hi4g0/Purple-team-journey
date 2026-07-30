@@ -8,12 +8,19 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        # Envia codigo de resposta 200 (OK)
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-        
+def do_GET(self):
+        # Se o usuario tentar acessar a rota secreta:
+        if self.path == "/secret-admin":
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(b"<h1>PAINEL ADMIN RESTRITO - FLAG{PURPLE_TEAM_2026}</h1>")
+        else:
+            # Rota padrao (404 para qualquer outra coisa)
+            self.send_response(404)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(b"<h1>404 - Pagina Nao Encontrada</h1>")        
         # Mensagem exibida para o cliente
         html_response = f"""
         <html>
